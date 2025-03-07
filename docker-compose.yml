@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 140222
+      POSTGRES_DB: lineman
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./lineman_dump.sql:/docker-entrypoint-initdb.d/lineman_dump.sql
+    networks:
+      - app-network
+    command: >
+      postgres -c shared_buffers=2GB
+               -c work_mem=128MB
+               -c effective_cache_size=4GB
+               -c max_connections=200
+               -c checkpoint_timeout=15min
+               -c checkpoint_completion_target=0.9
+               -c wal_buffers=32MB
+               -c default_statistics_target=100
+               -c random_page_cost=1.1
+               -c effective_io_concurrency=200
+               -c max_worker_processes=8
+               -c max_parallel_workers_per_gather=4
+
+  api:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:140222@db:5432/lineman
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

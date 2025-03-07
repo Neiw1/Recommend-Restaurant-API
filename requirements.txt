@@ -1,0 +1,14 @@
+numpy
+pandas
+scikit-learn==1.3.2
+pyarrow
+fastapi
+uvicorn
+pydantic
+h3
+python-multipart
+locust
+sqlalchemy
+psycopg2
+databases
+asyncpg
