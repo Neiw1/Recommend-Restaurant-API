@@ -1,6 +1,27 @@
+# Machine Learning Model
 model.pkl
+
+# Database Dump
 lineman_dump.sql
-model.pkl
-lineman_dump.sql
-model.pkl
-lineman_dump.sql
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# Environment-specific
+.env
+.DS_Store
+
+# Performance Test Artifacts
+performace_test_log*.csv
+performance_report.pdf
+perf_test/request.parquet
+
+# IDE Configuration
+.idea/
+.vscode/

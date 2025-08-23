@@ -8,10 +8,11 @@ import h3
 import math
 from sqlalchemy import create_engine, text
 from functools import lru_cache
+import os
 
 app = FastAPI()
 
-DATABASE_URL = 'postgresql+psycopg2://postgres:140222@db:5432/lineman'
+DATABASE_URL = os.environ.get('DATABASE_URL')
 engine = create_engine(DATABASE_URL)
 
 # load model from pickle file
